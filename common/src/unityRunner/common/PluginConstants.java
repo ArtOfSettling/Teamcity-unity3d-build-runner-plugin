@@ -26,7 +26,7 @@ public interface PluginConstants {
 
     final String PROPERTY_CLEAR_OUTPUT_BEFORE = "argument.clear_output_before";
     final String PROPERTY_CLEAN_OUTPUT_AFTER = "argument.clean_output_after";
-    final String PROPERTY_WARNINGS_AS_ERRORS = "argument.warnings_as_errors";
+    final String PROPERTY_FAIL_ON_ERROR = "argument.fail_on_error";
 
     final String PROPERTY_LOG_IGNORE = "argument.log_ignore";
     final String PROPERTY_LOG_IGNORE_TEXT = "argument.log_ignore_text";

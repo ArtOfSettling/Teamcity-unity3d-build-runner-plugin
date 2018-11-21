@@ -208,13 +208,13 @@
 
 <tr>
     <th>
-        <label for="argument.warnings_as_errors">Warnings As Errors: </label>
+        <label for="argument.fail_on_error">Fail on Error: </label>
     </th>
     <td>
-         <props:checkboxProperty name="argument.warnings_as_errors"/>
-         <span class="error" id="error_argument.warnings_as_errors"></span>
+         <props:checkboxProperty name="argument.fail_on_error"/>
+         <span class="error" id="error_argument.fail_on_error"></span>
          <span class="smallNote">
-            Should the build will report warnings as errors.
+            Should the build fail if an error has been found?
          </span>
     </td>
 </tr>

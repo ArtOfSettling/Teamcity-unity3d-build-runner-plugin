@@ -15,7 +15,7 @@ public class UnityRunnerBuildService extends BuildServiceAdapter {
     @Override
     public void afterInitialized() {
         java.io.File lineListDefinition = new java.io.File(getConfig().lineListPath);
-        runner = new UnityRunner(getConfig(), new LogParser(getLogger(), getConfig().warningsAsErrors, lineListDefinition));
+        runner = new UnityRunner(getConfig(), new LogParser(getLogger(), getConfig().failOnError, lineListDefinition));
     }
 
     @Override

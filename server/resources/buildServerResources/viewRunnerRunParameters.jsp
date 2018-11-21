@@ -48,7 +48,7 @@
 </div>
 
 <div class="parameter">
-  Warnings As Errors: <strong><props:displayValue name="argument.warnings_as_errors" /></strong>
+  Fail On Error: <strong><props:displayValue name="argument.fail_on_error" /></strong>
 </div>
 
 <div class="parameter">

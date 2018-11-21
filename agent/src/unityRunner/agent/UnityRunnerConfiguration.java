@@ -34,7 +34,7 @@ public class UnityRunnerConfiguration {
     final boolean clearBefore;
     final boolean cleanAfter;
     final boolean useCleanedLog;
-    final boolean warningsAsErrors;
+    final boolean failOnError;
     final String lineListPath;
     final String projectPath;
     final String executeMethod;
@@ -103,7 +103,7 @@ public class UnityRunnerConfiguration {
 
         clearBefore = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_CLEAR_OUTPUT_BEFORE);
         cleanAfter = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_CLEAN_OUTPUT_AFTER);
-        warningsAsErrors = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_WARNINGS_AS_ERRORS);
+        failOnError = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_FAIL_ON_ERROR);
 
         // set cleaned log path to %temp%/cleaned-%teamcity.build.id%.log
         cleanedLogPath = new java.io.File(

@@ -25,13 +25,11 @@ import java.util.Stack;
 public class LogParser {
     private final Stack<MatchedBlock> blockStack = new Stack<MatchedBlock>();
     private final jetbrains.buildServer.agent.BuildProgressLogger logger;
-    private final boolean warningsAsErrors;
-    private int errorCount;
+    private final boolean failOnError;
 
-    LogParser(jetbrains.buildServer.agent.BuildProgressLogger logger, boolean warningsAsErrors, java.io.File lineListDefinition) {
+    LogParser(jetbrains.buildServer.agent.BuildProgressLogger logger, boolean failOnError, java.io.File lineListDefinition) {
         this.logger = logger;
-        this.warningsAsErrors = warningsAsErrors;
-        this.errorCount = 0;
+        this.failOnError = failOnError;
 
         UnityLineListParser.ParseLines(lineListDefinition);
 
@@ -104,26 +102,35 @@ public class LogParser {
     }
 
 
-    private void logLine(String message) {
-        // Now check message
-        for (Line line : UnityLineListParser.lines) {
-            if (line.matches(message)) {
-                for(Line ignoredLine : UnityLineListParser.ignoredLines) {
-                    if(ignoredLine.matches(message)) {
-                        return;
+    private void logLine(String message)
+    {
+        try
+        {
+            // Now check message
+            for (Line line : UnityLineListParser.lines)
+            {
+                if (line.matches(message))
+                {
+                    for(Line ignoredLine : UnityLineListParser.ignoredLines)
+                    {
+                        if(ignoredLine.matches(message))
+                            return;
                     }
-                }
 
-                if(message != null && !message.isEmpty()) {
-                    log(message, line.getType());
+                    if(message != null && !message.isEmpty())
+                        log(message, line.getType());
+
+                    return;
                 }
-                return;
             }
-        }
 
-        // Don't log empty lines.
-        if(message != null && !message.isEmpty()) {
-            log(message, Line.Type.Normal);
+            // Don't log empty lines.
+            if(message != null && !message.isEmpty())
+                log(message, Line.Type.Normal);
+        }
+        catch(Exception e)
+        {
+
         }
     }
 
@@ -133,17 +140,9 @@ public class LogParser {
         switch (type) {
             case Warning:
                 status = Status.WARNING;
-                if(warningsAsErrors) {
-                    status = Status.ERROR;
-                    errorCount++;
-                }
-                else {
-                    status = Status.WARNING;
-                }
                 break;
             case Error:
                 status = Status.ERROR;
-                errorCount++;
                 break;
             case Failure:
                 status = Status.FAILURE;
@@ -153,15 +152,16 @@ public class LogParser {
                 break;
         }
 
-        if(status == Status.ERROR) {
+        if(status == Status.ERROR)
             status = Status.FAILURE;
-        }
+
+        if(!failOnError)
+            status = Status.NORMAL;
 
         logger.logMessage(new BuildMessage1("DefaultMessage", "Text", status, getTimestamp(), message));
     }
 
     public void logException(Exception e) {
-        errorCount++;
         final Writer stackTrace = new StringWriter();
         e.printStackTrace(new PrintWriter(stackTrace));
         log("Exception: " + stackTrace.toString(), Line.Type.Failure);

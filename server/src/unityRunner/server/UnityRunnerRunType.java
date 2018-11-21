@@ -138,7 +138,7 @@ public class UnityRunnerRunType extends RunType {
         defaults.put(PluginConstants.PROPERTY_BATCH_MODE, "true");
         defaults.put(PluginConstants.PROPERTY_CLEAR_OUTPUT_BEFORE, "true");
         defaults.put(PluginConstants.PROPERTY_CLEAN_OUTPUT_AFTER, "true");
-        defaults.put(PluginConstants.PROPERTY_WARNINGS_AS_ERRORS, "true");
+        defaults.put(PluginConstants.PROPERTY_FAIL_ON_ERROR, "true");
         defaults.put(PluginConstants.PROPERTY_LOG_IGNORE, "false");
 
         return defaults;
