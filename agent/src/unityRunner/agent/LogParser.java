@@ -102,36 +102,25 @@ public class LogParser {
     }
 
 
-    private void logLine(String message)
-    {
-        try
-        {
-            // Now check message
-            for (Line line : UnityLineListParser.lines)
-            {
-                if (line.matches(message))
-                {
-                    for(Line ignoredLine : UnityLineListParser.ignoredLines)
-                    {
-                        if(ignoredLine.matches(message))
-                            return;
-                    }
-
-                    if(message != null && !message.isEmpty())
-                        log(message, line.getType());
-
-                    return;
+    private void logLine(String message) {
+        // Now check message
+        for (Line line : UnityLineListParser.lines) {
+            if (line.matches(message)) {
+                for (Line ignoredLine : UnityLineListParser.ignoredLines) {
+                    if (ignoredLine.matches(message))
+                        return;
                 }
+
+                if (message != null && !message.isEmpty())
+                    log(message, line.getType());
+
+                return;
             }
-
-            // Don't log empty lines.
-            if(message != null && !message.isEmpty())
-                log(message, Line.Type.Normal);
         }
-        catch(Exception e)
-        {
 
-        }
+        // Don't log empty lines.
+        if (message != null && !message.isEmpty())
+            log(message, Line.Type.Normal);
     }
 
     private void log(String message, Line.Type type) {

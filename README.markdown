@@ -84,8 +84,6 @@ Many of these relate to [Unity3d command line arguments](http://unity3d.com/supp
 * Build Player - choose which Unity Player to build, currently supported are Web, Windows or OSX (but it would be easy to add others if required). Equivalent to passing -buildWebPlayer -buildWindowsPlayer or -buildOSXPlayer on command line
 * Execute method - specify a method for Unity to execute, to allow you to customise your build process. Equivalent to -executeMethod on the command line
 * Build path - specify the output build path for the Player
-* Clear output before - ensures output folder exists and is empty, before invoking Unity
-* Clean output after - removes any .svn and .meta files found in the output directory, as these are usually not wanted
 * Quit - specify if unity should quit after a build. Usually should be left enabled, equivalent to the -quit command line option
 
 

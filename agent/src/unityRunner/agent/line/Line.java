@@ -24,7 +24,12 @@ public class Line {
     }
 
     public boolean matches(String message) {
-        return message.matches(regex);
+        try {
+            return message.matches(regex);
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
     public Type getType() {

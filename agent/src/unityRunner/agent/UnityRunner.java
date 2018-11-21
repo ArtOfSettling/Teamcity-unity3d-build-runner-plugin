@@ -97,11 +97,6 @@ public class UnityRunner {
      */
     public void start() {
         logMessage("[Starting UnityRunner]");
-
-        if (configuration.clearBefore) {
-            clearBefore();
-        }
-
         tailLogFile();
     }
 
@@ -137,15 +132,6 @@ public class UnityRunner {
         logMessage("[Stop UnityRunner]");
     }
 
-    /**
-     * cleanup after runner
-     */
-    public void optionallyCleanupAfter() {
-        if (configuration.cleanAfter) {
-            cleanAfter();
-        }
-    }
-
     private void initialise() {
         deleteLogFile(configuration.getInterestedLogPath());
     }
@@ -165,39 +151,6 @@ public class UnityRunner {
 
     void logMessage(String message) {
         logParser.log(message);
-    }
-
-    /**
-     * clear the output directory before running
-     */
-    private void clearBefore() {
-        File outputDir = new File(configuration.buildPath);
-
-        try {
-            if (outputDir.exists()) {
-                logMessage("Removing output directory: " + outputDir.getPath());
-                if (outputDir.isDirectory()) {
-                    // only delete directory if it is a directory!
-                    FileUtils.deleteDirectory(outputDir);
-                } else if (outputDir.isFile()) {
-                    outputDir.delete();
-                }
-            }
-
-            logMessage("Creating output directory: " + outputDir.getPath());
-            FileUtils.forceMkdir(outputDir);
-
-        } catch (IOException e) {
-            logParser.logException(e);
-        }
-
-    }
-
-    /**
-     * remove .svn and .meta files from the output directory after running
-     */
-    private void cleanAfter() {
-        new OutputDirectoryCleaner(logParser).clean(new File(configuration.buildPath));
     }
 }
 

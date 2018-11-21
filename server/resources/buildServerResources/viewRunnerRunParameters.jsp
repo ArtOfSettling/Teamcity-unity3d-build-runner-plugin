@@ -77,11 +77,6 @@
   Clear Output Before: <strong><props:displayValue name="argument.clear_output_before" /></strong>
 </div>
 
-
-<div class="parameter">
-  Clean Output After: <strong><props:displayValue name="argument.clean_output_after" /></strong>
-</div>
-
 <div class="parameter">
   <c:choose>
     <c:when test="${propertiesBean.properties['argument.log_ignore']}">

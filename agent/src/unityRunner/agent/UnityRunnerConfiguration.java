@@ -9,6 +9,7 @@ import unityRunner.common.PluginConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,8 +32,6 @@ public class UnityRunnerConfiguration {
     final boolean quit;
     final boolean batchMode;
     final boolean noGraphics;
-    final boolean clearBefore;
-    final boolean cleanAfter;
     final boolean useCleanedLog;
     final boolean failOnError;
     final String lineListPath;
@@ -101,14 +100,13 @@ public class UnityRunnerConfiguration {
                 Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_PATH));
         extraOpts = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_EXTRA);
 
-        clearBefore = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_CLEAR_OUTPUT_BEFORE);
-        cleanAfter = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_CLEAN_OUTPUT_AFTER);
         failOnError = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_FAIL_ON_ERROR);
 
-        // set cleaned log path to %temp%/cleaned-%teamcity.build.id%.log
+        String uniqueID = UUID.randomUUID().toString();
+        // set cleaned log path to %temp%/cleaned-%hash%.log
         cleanedLogPath = new java.io.File(
-                agentRunningBuild.getBuildTempDirectory(),
-                String.format("cleaned-%d.log", agentRunningBuild.getBuildId()) );
+                agentRunningBuild.getAgentTempDirectory(),
+                String.format("cleaned-%s.log", uniqueID) );
 
         useCleanedLog = true;
 
