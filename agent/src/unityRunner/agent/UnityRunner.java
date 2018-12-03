@@ -16,7 +16,8 @@ import java.util.List;
  * Date: 13/12/2011
  * Time: 14:36
  */
-public class UnityRunner {
+public class UnityRunner
+{
     final UnityRunnerConfiguration configuration;
     private volatile boolean stop = false;
     private final LogParser logParser;
@@ -95,7 +96,8 @@ public class UnityRunner {
     /**
      * start the unity runner
      */
-    public void start() {
+    public void start()
+    {
         logMessage("[Starting UnityRunner]");
         tailLogFile();
     }
@@ -103,7 +105,8 @@ public class UnityRunner {
     /**
      * tail the log file during running
      */
-    private void tailLogFile() {
+    private void tailLogFile()
+    {
         initialise();
 
         logMessage("[tailing log file: " + configuration.getInterestedLogPath() + "]");
@@ -116,7 +119,8 @@ public class UnityRunner {
         runnerThread.start();
     }
 
-    private void logMessages(List<String> lines) {
+    private void logMessages(List<String> lines)
+    {
         for (String line : lines){
             logMessage(line);
         }
@@ -125,19 +129,21 @@ public class UnityRunner {
     /**
      * stop the runner
      */
-    public void stop() {
+    public void stop()
+    {
         tailer.stop();
 
         logMessage("[log tail process end]");
         logMessage("[Stop UnityRunner]");
     }
 
-    private void initialise() {
+    private void initialise()
+    {
         deleteLogFile(configuration.getInterestedLogPath());
     }
 
-    private void deleteLogFile(String path) {
-
+    private void deleteLogFile(String path)
+    {
         File logFile = new File(path);
 
         if (logFile.exists()) {
@@ -149,7 +155,8 @@ public class UnityRunner {
         }
     }
 
-    void logMessage(String message) {
+    void logMessage(String message)
+    {
         logParser.log(message);
     }
 }

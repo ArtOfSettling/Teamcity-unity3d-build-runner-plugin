@@ -67,6 +67,7 @@ public class UnityRunnerRunType extends RunType {
         describeParam("Output directory", parameters.get(PluginConstants.PROPERTY_BUILD_PATH), sb);
         describeParam("Extra options", parameters.get(PluginConstants.PROPERTY_BUILD_EXTRA), sb);
         describeParam("Execute Method", parameters.get(PluginConstants.PROPERTY_EXECUTE_METHOD), sb);
+        describeParam("Fail On Error", parameters.get(PluginConstants.PROPERTY_FAIL_ON_ERROR), sb);
 
         String logIgnore = parameters.get(PluginConstants.PROPERTY_LOG_IGNORE);
         if (logIgnore != null && "true".equals(logIgnore)) {

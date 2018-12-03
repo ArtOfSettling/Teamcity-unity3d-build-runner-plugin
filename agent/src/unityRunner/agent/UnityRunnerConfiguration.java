@@ -74,8 +74,7 @@ public class UnityRunnerConfiguration {
         projectPath = FilenameUtils.separatorsToSystem(Parameters.getString(runnerParameters, PluginConstants.PROPERTY_PROJECT_PATH));
 
         // executable path CAN be overridden
-        unityExecutablePath = FilenameUtils.separatorsToSystem(
-                Parameters.getString(runnerParameters, PluginConstants.PROPERTY_UNITY_EXECUTABLE_PATH));
+        unityExecutablePath = FilenameUtils.separatorsToSystem(Parameters.getString(runnerParameters, PluginConstants.PROPERTY_UNITY_EXECUTABLE_PATH));
 
         unitySerial = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_UNITY_SERIAL);
 
@@ -85,7 +84,8 @@ public class UnityRunnerConfiguration {
             detectedUnityVersionPath = Parameters.getString(
                     agentConfiguration.getConfigurationParameters(),
                     "unity." + unityVersion);
-        } else {
+        }
+        else {
             // default to use 'latest' version of unity that was previously found
             detectedUnityVersionPath = Parameters.getString(
                     agentConfiguration.getConfigurationParameters(),
@@ -96,10 +96,8 @@ public class UnityRunnerConfiguration {
         executeMethod = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_EXECUTE_METHOD);
         buildPlayer = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_PLAYER);
         buildTarget = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_TARGET);
-        buildPath = FilenameUtils.separatorsToSystem(
-                Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_PATH));
+        buildPath = FilenameUtils.separatorsToSystem(Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_PATH));
         extraOpts = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_EXTRA);
-
         failOnError = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_FAIL_ON_ERROR);
 
         String uniqueID = UUID.randomUUID().toString();

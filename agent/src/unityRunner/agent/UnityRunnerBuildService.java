@@ -4,10 +4,12 @@ import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.runner.BuildServiceAdapter;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
 import jetbrains.buildServer.agent.runner.TerminationAction;
+import jetbrains.buildServer.agent.BuildFinishedStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class UnityRunnerBuildService extends BuildServiceAdapter {
     private UnityRunner runner;
+    private boolean failOnError;
 
     public UnityRunnerBuildService() {
     }
@@ -15,6 +17,7 @@ public class UnityRunnerBuildService extends BuildServiceAdapter {
     @Override
     public void afterInitialized() {
         java.io.File lineListDefinition = new java.io.File(getConfig().lineListPath);
+        failOnError = getConfig().failOnError;
         runner = new UnityRunner(getConfig(), new LogParser(getLogger(), getConfig().failOnError, lineListDefinition));
     }
 
@@ -49,5 +52,17 @@ public class UnityRunnerBuildService extends BuildServiceAdapter {
 
     @Override
     public void afterProcessSuccessfullyFinished() {
+    }
+
+    @Override
+    @NotNull
+    public BuildFinishedStatus getRunResult(final int exitCode) {
+        if(!failOnError)
+            return BuildFinishedStatus.FINISHED_SUCCESS;
+
+        if (exitCode == 0)
+            return BuildFinishedStatus.FINISHED_SUCCESS;
+
+        return BuildFinishedStatus.FINISHED_FAILED;
     }
 }
