@@ -26,10 +26,12 @@ public class LogParser {
     private final Stack<MatchedBlock> blockStack = new Stack<MatchedBlock>();
     private final jetbrains.buildServer.agent.BuildProgressLogger logger;
     private final boolean failOnError;
+    private int errorCount;
 
     LogParser(jetbrains.buildServer.agent.BuildProgressLogger logger, boolean failOnError, java.io.File lineListDefinition) {
         this.logger = logger;
         this.failOnError = failOnError;
+        this.errorCount = 0;
 
         UnityLineListParser.ParseLines(lineListDefinition);
 
@@ -111,15 +113,14 @@ public class LogParser {
                         return;
                 }
 
-                if (message != null && !message.isEmpty())
+                if (message != null)
                     log(message, line.getType());
 
                 return;
             }
         }
 
-        // Don't log empty lines.
-        if (message != null && !message.isEmpty())
+        if (message != null)
             log(message, Line.Type.Normal);
     }
 
@@ -141,8 +142,11 @@ public class LogParser {
                 break;
         }
 
-        if(status == Status.ERROR)
+        if(status == Status.ERROR || status == Status.FAILURE)
+        {
             status = Status.FAILURE;
+            errorCount++;
+        }
 
         if(!failOnError)
             status = Status.NORMAL;
@@ -159,5 +163,9 @@ public class LogParser {
     private Timestamp getTimestamp() {
         java.util.Date date = new java.util.Date();
         return new Timestamp(date.getTime());
+    }
+
+    public int getErrorCount() {
+        return errorCount;
     }
 }

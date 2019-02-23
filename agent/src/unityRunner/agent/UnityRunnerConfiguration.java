@@ -46,6 +46,7 @@ public class UnityRunnerConfiguration {
 
     final Platform platform;
     final java.io.File cleanedLogPath;
+    final java.io.File logPath;
 
     final boolean ignoreLogBefore;
     final String ignoreLogBeforeText;
@@ -106,7 +107,15 @@ public class UnityRunnerConfiguration {
                 agentRunningBuild.getAgentTempDirectory(),
                 String.format("cleaned-%s.log", uniqueID) );
 
-        useCleanedLog = true;
+        logPath = new java.io.File(
+                agentRunningBuild.getAgentTempDirectory(),
+                String.format("full-%s.log", uniqueID) );
+
+        agentConfiguration.addConfigurationParameter(
+                "unity.fullLog",
+                getFullLogPath());
+
+        useCleanedLog = false;
 
         ignoreLogBefore = Parameters.getBoolean(runnerParameters, PluginConstants.PROPERTY_LOG_IGNORE);
         ignoreLogBeforeText = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_LOG_IGNORE_TEXT);
@@ -139,12 +148,16 @@ public class UnityRunnerConfiguration {
     String getCleanedLogPath() {
         return cleanedLogPath.getPath();
     }
+
+    String getFullLogPath() {
+        return logPath.getPath();
+    }
     
     String getInterestedLogPath() {
         if (useCleanedLog) {
             return getCleanedLogPath();
         } else {
-            return getUnityLogPath();
+            return getFullLogPath();
         }
     }
 

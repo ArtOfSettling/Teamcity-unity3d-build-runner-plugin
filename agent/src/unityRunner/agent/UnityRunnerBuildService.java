@@ -60,6 +60,13 @@ public class UnityRunnerBuildService extends BuildServiceAdapter {
         if(!failOnError)
             return BuildFinishedStatus.FINISHED_SUCCESS;
 
+        if(runner != null)
+        {
+            int errorCount = runner.getErrorCount();
+            if(errorCount > 0)
+                return BuildFinishedStatus.FINISHED_FAILED;
+        }
+
         if (exitCode == 0)
             return BuildFinishedStatus.FINISHED_SUCCESS;
 

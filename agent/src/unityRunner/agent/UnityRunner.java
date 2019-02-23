@@ -82,6 +82,9 @@ public class UnityRunner
             args.add(configuration.buildTarget);
         }
 
+        args.add("-logFile");
+        args.add(configuration.getFullLogPath());
+
         if (configuration.useCleanedLog) {
             args.add("-cleanedLogFile");
             args.add(configuration.getCleanedLogPath());
@@ -158,6 +161,11 @@ public class UnityRunner
     void logMessage(String message)
     {
         logParser.log(message);
+    }
+
+    public int getErrorCount()
+    {
+        return logParser.getErrorCount();
     }
 }
 
