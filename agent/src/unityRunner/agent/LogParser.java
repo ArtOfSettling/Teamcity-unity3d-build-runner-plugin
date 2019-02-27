@@ -28,12 +28,13 @@ public class LogParser {
     private final boolean failOnError;
     private int errorCount;
 
-    LogParser(jetbrains.buildServer.agent.BuildProgressLogger logger, boolean failOnError, java.io.File lineListDefinition) {
+    LogParser(jetbrains.buildServer.agent.BuildProgressLogger logger, boolean failOnError, java.io.File lineListDefinition, java.io.File logBlockDefinition) {
         this.logger = logger;
         this.failOnError = failOnError;
         this.errorCount = 0;
 
         UnityLineListParser.ParseLines(lineListDefinition);
+        UnityBlockList.ParseLines(logBlockDefinition);
 
         for (Block block : UnityBlockList.blocks)
             block.init();
@@ -50,8 +51,6 @@ public class LogParser {
         logger.activityFinished(name, "DefaultMessage");
     }
 
-
-
     private void logBlockStart(MatchedBlock block) {
         logActivityStart(block.getName());
         blockStack.push(block);
@@ -60,7 +59,6 @@ public class LogParser {
     private void logBlockEnd() {
         logActivityEnd(blockStack.pop().getName());
     }
-
 
     public void log(String message) {
         // Check if new message is the end of the current block (if it exists).

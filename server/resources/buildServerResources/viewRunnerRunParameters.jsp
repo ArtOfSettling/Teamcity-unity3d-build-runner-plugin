@@ -44,6 +44,10 @@
 </div>
 
 <div class="parameter">
+  Log Block Path: <strong><props:displayValue name="argument.log_block_path" /></strong>
+</div>
+
+<div class="parameter">
   Build player: <strong><props:displayValue name="argument.build_player" /></strong>
 </div>
 

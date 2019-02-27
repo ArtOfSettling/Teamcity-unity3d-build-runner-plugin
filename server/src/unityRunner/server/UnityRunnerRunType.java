@@ -63,6 +63,7 @@ public class UnityRunnerRunType extends RunType {
         describeParam("Version", parameters.get(PluginConstants.PROPERTY_UNITY_VERSION), sb);
         describeParam("Project", parameters.get(PluginConstants.PROPERTY_PROJECT_PATH), sb);
         describeParam("Error / Warning Line List", parameters.get(PluginConstants.PROPERTY_LINELIST_PATH), sb);
+        describeParam("Log Block List", parameters.get(PluginConstants.PROPERTY_LOG_BLOCK_PATH), sb);
         describeParam("Build Player", parameters.get(PluginConstants.PROPERTY_BUILD_PLAYER), sb);
         describeParam("Output directory", parameters.get(PluginConstants.PROPERTY_BUILD_PATH), sb);
         describeParam("Extra options", parameters.get(PluginConstants.PROPERTY_BUILD_EXTRA), sb);

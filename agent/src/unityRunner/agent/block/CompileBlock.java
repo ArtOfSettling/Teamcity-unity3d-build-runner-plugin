@@ -11,7 +11,6 @@ public class CompileBlock extends Block {
     public CompileBlock() {
         beginning = "-----Compiler Commandline Arguments:";
         end = "-----EndCompilerOutput---------------";
-
         name = "Compile";
     }
 

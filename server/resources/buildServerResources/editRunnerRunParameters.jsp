@@ -112,6 +112,19 @@
     </td>
 </tr>
 
+<tr>
+    <th>
+        <label for="argument.line_list_path">Log Block path: </label>
+    </th>
+    <td>
+        <props:textProperty name="argument.log_block_path" style="width:32em;"/>
+        <span class="error" id="error_argument.log_block_path"></span>
+        <span class="smallNote">
+             Open the Log Block file at the following path
+        </span>
+    </td>
+</tr>
+
 <props:selectSectionProperty name="argument.build_player" title="Build player:">
     <props:selectSectionPropertyContent value="" caption="<Don't build player>"/>
     <props:selectSectionPropertyContent value="buildWindowsPlayer" caption="Windows (32-bit) Player"/>

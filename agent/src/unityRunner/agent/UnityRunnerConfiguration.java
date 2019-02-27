@@ -35,6 +35,7 @@ public class UnityRunnerConfiguration {
     final boolean useCleanedLog;
     final boolean failOnError;
     final String lineListPath;
+    final String logBlockPath;
     final String projectPath;
     final String executeMethod;
     final String buildPlayer;
@@ -94,6 +95,8 @@ public class UnityRunnerConfiguration {
         }
 
         lineListPath = FilenameUtils.separatorsToSystem(Parameters.getString(runnerParameters, PluginConstants.PROPERTY_LINELIST_PATH));
+        logBlockPath = FilenameUtils.separatorsToSystem(Parameters.getString(runnerParameters, PluginConstants.PROPERTY_LOG_BLOCK_PATH));
+
         executeMethod = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_EXECUTE_METHOD);
         buildPlayer = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_PLAYER);
         buildTarget = Parameters.getString(runnerParameters, PluginConstants.PROPERTY_BUILD_TARGET);
